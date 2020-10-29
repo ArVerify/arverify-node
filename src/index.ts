@@ -62,7 +62,7 @@ router.get("/verify", async (ctx, next) => {
       message: "address is required",
     };
   } else {
-    if (tipReceived(addr, config.fee)) {
+    if (await tipReceived(addr, config.fee)) {
       console.log(addr);
     } else {
       ctx.status = 400;
