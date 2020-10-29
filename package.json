@@ -5,8 +5,10 @@
   "author": "John Letey <johnletey@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "rollup -c && node .",
     "fmt": "prettier --write ."
   },
+  "main": "dist/index.js",
   "dependencies": {
     "@koa/router": "^9.4.0",
     "koa": "^2.13.0"
@@ -15,6 +17,8 @@
     "@types/koa": "^2.11.6",
     "@types/koa__router": "^8.0.3",
     "prettier": "^2.1.2",
+    "rollup": "^2.32.1",
+    "rollup-plugin-typescript2": "^0.28.0",
     "typescript": "^4.0.5"
   }
 }
