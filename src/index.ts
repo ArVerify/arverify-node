@@ -28,8 +28,7 @@ const jwk = JSON.parse(
 const oauthClient = new google.auth.OAuth2(
   config["clientID"],
   config["clientSecret"],
-  // TODO(@johnletey): Update this to use env variable
-  "http://localhost:3000/verify/callback"
+  config["endpoint"] + "/verify/callback"
 );
 
 const http = new Koa();
@@ -91,13 +90,45 @@ router.get("/verify", async (ctx, next) => {
   await next();
 });
 
-// TODO(@johnletey): Continue building this out ...
 router.get("/verify/callback", async (ctx, next) => {
   const code = ctx.query["code"];
   const state = JSON.parse(ctx.query["state"]);
   const addr = state["address"];
 
-  console.log(state, addr);
+  const res = await oauthClient.getToken(code);
+  if (res.tokens.access_token) {
+    const info = await oauthClient.getTokenInfo(res.tokens.access_token!);
+    if (info.email_verified) {
+      console.log(info.email);
+
+      const tags = {
+        "App-Name": "ArVerifyDev",
+        Type: "Verification",
+        Method: "Google",
+        Address: addr,
+      };
+
+      const tx = await client.createTransaction(
+        {
+          target: addr,
+          data: Math.random().toString().slice(-4),
+        },
+        jwk
+      );
+
+      for (const [key, value] of Object.entries(tags)) {
+        tx.addTag(key, value);
+      }
+
+      await client.transactions.sign(tx, jwk);
+      await client.transactions.post(tx);
+
+      ctx.body = {
+        status: "success",
+        id: tx.id,
+      };
+    }
+  }
 
   await next();
 });
