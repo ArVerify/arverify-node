@@ -12,6 +12,7 @@
   "dependencies": {
     "@koa/router": "^9.4.0",
     "arweave": "^1.9.1",
+    "googleapis": "^62.0.0",
     "koa": "^2.13.0",
     "node-fetch": "^2.6.1"
   },
