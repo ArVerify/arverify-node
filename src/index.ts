@@ -60,15 +60,18 @@ const tipReceived = async (addr: string, fee: number): Promise<boolean> => {
 };
 
 router.get("/verify", async (ctx, next) => {
+  console.log("===== /verify =====");
   const addr = ctx.query["address"];
 
   if (!addr) {
+    console.log("No address supplied.");
     ctx.status = 400;
     ctx.body = {
       status: "error",
       message: "address is required",
     };
   } else {
+    console.log("Received verification request for address:\n  -", addr);
     if (await tipReceived(addr, config.fee)) {
       const uri = oauthClient.generateAuthUrl({
         scope: ["openid", "email", "profile"],
@@ -78,7 +81,9 @@ router.get("/verify", async (ctx, next) => {
         status: "success",
         uri,
       };
+      console.log("Generated a unique auth URI.");
     } else {
+      console.log("No tip received from this address yet.");
       ctx.status = 400;
       ctx.body = {
         status: "error",
@@ -88,18 +93,23 @@ router.get("/verify", async (ctx, next) => {
   }
 
   await next();
+  console.log("===================\n");
 });
 
 router.get("/verify/callback", async (ctx, next) => {
+  console.log("===== /verify/callback =====");
+
   const code = ctx.query["code"];
   const state = JSON.parse(ctx.query["state"]);
   const addr = state["address"];
 
+  console.log("Received callback for address:\n  -", addr);
+
   const res = await oauthClient.getToken(code);
   if (res.tokens.access_token) {
-    const info = await oauthClient.getTokenInfo(res.tokens.access_token!);
+    const info = await oauthClient.getTokenInfo(res.tokens.access_token);
     if (info.email_verified) {
-      console.log(info.email);
+      console.log("Verified email:\n  -", info.email);
 
       const tags = {
         "App-Name": "ArVerifyDev",
@@ -127,10 +137,17 @@ router.get("/verify/callback", async (ctx, next) => {
         status: "success",
         id: tx.id,
       };
+
+      console.log("Sent Arweave transaction:\n  -", tx.id);
+    } else {
+      console.log("Email address is not verified.");
     }
+  } else {
+    console.log("No access token.");
   }
 
   await next();
+  console.log("============================\n");
 });
 
 http.use(router.routes());
