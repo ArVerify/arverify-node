@@ -7,6 +7,7 @@ import Router from "@koa/router";
 
 import { query } from "./utils";
 import tipQuery from "./queries/tip.gql";
+import { isVerified } from "arverify";
 
 const client = new Arweave({
   host: "arweave.net",
@@ -72,23 +73,31 @@ router.get("/verify", async (ctx, next) => {
     };
   } else {
     console.log("Received verification request for address:\n  -", addr);
-    if (await tipReceived(addr, config.fee)) {
-      const uri = oauthClient.generateAuthUrl({
-        scope: ["openid", "email", "profile"],
-        state: JSON.stringify({ address: addr }),
-      });
+    if (await isVerified(addr)) {
       ctx.body = {
         status: "success",
-        uri,
+        message: "already verified",
       };
-      console.log("Generated a unique auth URI.");
+      console.log("Address already verified.");
     } else {
-      console.log("No tip received from this address yet.");
-      ctx.status = 400;
-      ctx.body = {
-        status: "error",
-        message: "no tip",
-      };
+      if (await tipReceived(addr, config.fee)) {
+        const uri = oauthClient.generateAuthUrl({
+          scope: ["openid", "email", "profile"],
+          state: JSON.stringify({ address: addr }),
+        });
+        ctx.body = {
+          status: "success",
+          uri,
+        };
+        console.log("Generated a unique auth URI.");
+      } else {
+        console.log("No tip received from this address yet.");
+        ctx.status = 400;
+        ctx.body = {
+          status: "error",
+          message: "no tip",
+        };
+      }
     }
   }
 

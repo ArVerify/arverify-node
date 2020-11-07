@@ -202,6 +202,13 @@ arrify@^2.0.0:
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
   integrity sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==
 
+arverify@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/arverify/-/arverify-1.0.0.tgz#11b87ddd8e5daafdaedf509ac6b0bf30d8a80c67"
+  integrity sha512-X1M6S4j6WIGKePcSxPfZ4E6WcUDqTDRi9sa9pQGqBNLjDPtKvh/PKq/dPhgGW56/ZYw87oc912jukSLfJ6RQRg==
+  dependencies:
+    node-fetch "^2.6.1"
+
 arweave@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.9.1.tgz#9b3754eeb38a244ed9abf1024ab0df6bfb76a990"
