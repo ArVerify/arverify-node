@@ -63,6 +63,7 @@ const tipReceived = async (addr: string, fee: number): Promise<boolean> => {
 router.get("/verify", async (ctx, next) => {
   console.log("===== /verify =====");
   const addr = ctx.query["address"];
+  const returnUri = ctx.query["return"];
 
   if (!addr) {
     console.log("No address supplied.");
@@ -83,7 +84,7 @@ router.get("/verify", async (ctx, next) => {
       if (await tipReceived(addr, config.fee)) {
         const uri = oauthClient.generateAuthUrl({
           scope: ["openid", "email", "profile"],
-          state: JSON.stringify({ address: addr }),
+          state: JSON.stringify({ address: addr, returnUri }),
         });
         ctx.body = {
           status: "success",
@@ -111,6 +112,7 @@ router.get("/verify/callback", async (ctx, next) => {
   const code = ctx.query["code"];
   const state = JSON.parse(ctx.query["state"]);
   const addr = state["address"];
+  const uri = state["returnUri"];
 
   console.log("Received callback for address:\n  -", addr);
 
@@ -155,6 +157,7 @@ router.get("/verify/callback", async (ctx, next) => {
     console.log("No access token.");
   }
 
+  if (uri) ctx.redirect(uri);
   await next();
   console.log("============================\n");
 });
