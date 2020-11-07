@@ -1,14 +1,13 @@
 {
   "private": true,
   "version": "1.0.0",
-  "repository": "git@github.com:johnletey/arverify-node.git",
+  "repository": "git@github.com:ArVerify/arverify-node.git",
   "author": "John Letey <johnletey@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rollup -c && node .",
+    "start": "tsc index.ts --esModuleInterop true --outDir dist && node dist/index.js",
     "fmt": "prettier --write ."
   },
-  "main": "dist/index.js",
   "dependencies": {
     "@koa/router": "^9.4.0",
     "arverify": "^1.0.0",
@@ -17,12 +16,9 @@
     "koa": "^2.13.0"
   },
   "devDependencies": {
-    "@rollup/pluginutils": "^4.1.0",
     "@types/koa": "^2.11.6",
     "@types/koa__router": "^8.0.3",
     "prettier": "^2.1.2",
-    "rollup": "^2.32.1",
-    "rollup-plugin-typescript2": "^0.28.0",
     "typescript": "^4.0.5"
   }
 }

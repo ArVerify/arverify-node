@@ -151,3 +151,4 @@ router.get("/verify/callback", async (ctx, next) => {
 http.use(router.routes());
 
 http.listen(3000);
+console.log("ArVerify Auth Node started at port 3000.\n");
