@@ -5,9 +5,7 @@ import { google } from "googleapis";
 import Koa from "koa";
 import Router from "@koa/router";
 
-import { query } from "./utils";
-import tipQuery from "./queries/tip.gql";
-import { isVerified } from "arverify";
+import { isVerified, tipReceived } from "arverify";
 
 const client = new Arweave({
   host: "arweave.net",
@@ -42,24 +40,6 @@ router.get("/ping", async (ctx, next) => {
   await next();
 });
 
-const tipReceived = async (addr: string, fee: number): Promise<boolean> => {
-  const txs = (
-    await query({
-      query: tipQuery,
-      variables: {
-        owner: addr,
-        recipient: await client.wallets.jwkToAddress(jwk),
-      },
-    })
-  ).data.transactions.edges;
-
-  if (txs.length === 1) {
-    return parseFloat(txs[0].node.quantity.ar) === fee;
-  }
-
-  return false;
-};
-
 router.get("/verify", async (ctx, next) => {
   console.log("===== /verify =====");
   const addr = ctx.query["address"];
@@ -81,7 +61,13 @@ router.get("/verify", async (ctx, next) => {
       };
       console.log("Address already verified.");
     } else {
-      if (await tipReceived(addr, config.fee)) {
+      if (
+        await tipReceived(
+          addr,
+          await client.wallets.jwkToAddress(jwk),
+          config.fee
+        )
+      ) {
         const uri = oauthClient.generateAuthUrl({
           scope: ["openid", "email", "profile"],
           state: JSON.stringify({ address: addr, returnUri }),
