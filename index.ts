@@ -5,7 +5,7 @@ import { google } from "googleapis";
 import Koa from "koa";
 import Router from "@koa/router";
 
-import { isVerified, tipReceived } from "arverify";
+import { sendGenesis, isVerified, tipReceived } from "arverify";
 
 const client = new Arweave({
   host: "arweave.net",
@@ -61,13 +61,7 @@ router.get("/verify", async (ctx, next) => {
       };
       console.log("Address already verified.");
     } else {
-      if (
-        await tipReceived(
-          addr,
-          await client.wallets.jwkToAddress(jwk),
-          config.fee
-        )
-      ) {
+      if (await tipReceived(addr, await client.wallets.jwkToAddress(jwk))) {
         const uri = oauthClient.generateAuthUrl({
           scope: ["openid", "email", "profile"],
           state: JSON.stringify({ address: addr, returnUri }),
@@ -150,5 +144,16 @@ router.get("/verify/callback", async (ctx, next) => {
 
 http.use(router.routes());
 
-http.listen(3000);
-console.log("ArVerify Auth Node started at port 3000.\n");
+async function start() {
+  const genesis = await sendGenesis(jwk, config["endpoint"]);
+  if (genesis === "stake") {
+    console.log("Sorry, you don't have any stake.\n");
+    process.exit(1);
+  } else {
+    console.log("Sent genesis tx with id:\n  -", genesis, "\n");
+    http.listen(3000);
+    console.log("ArVerify Auth Node started at port 3000.\n");
+  }
+}
+
+start();
