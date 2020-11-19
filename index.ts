@@ -4,6 +4,9 @@ import { google } from "googleapis";
 
 import Koa from "koa";
 import Router from "@koa/router";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 import { sendGenesis, isVerified, tipReceived } from "arverify";
 
@@ -22,10 +25,10 @@ try {
   );
 } catch (err) {
   config = {
-    clientID: process.env["clientID"],
-    clientSecret: process.env["clientSecret"],
-    endpoint: process.env["endpoint"],
-    keyfile: process.env["keyfile"],
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    endpoint: process.env.ENDPOINT,
+    keyfile: process.env.KEYFILE,
   };
 }
 
