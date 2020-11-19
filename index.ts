@@ -13,11 +13,22 @@ const client = new Arweave({
   protocol: "https",
 });
 
-const config = JSON.parse(
-  fs.readFileSync("config.json", {
-    encoding: "utf-8",
-  })
-);
+let config: any;
+try {
+  config = JSON.parse(
+    fs.readFileSync("config.json", {
+      encoding: "utf-8",
+    })
+  );
+} catch (err) {
+  config = {
+    clientID: process.env["clientID"],
+    clientSecret: process.env["clientSecret"],
+    endpoint: process.env["endpoint"],
+    keyfile: process.env["keyfile"],
+  };
+}
+
 const jwk = JSON.parse(
   fs.readFileSync(config.keyfile, {
     encoding: "utf-8",
