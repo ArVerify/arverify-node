@@ -1,11 +1,9 @@
-FROM node:14
-ENV NODE_ENV=production
-
-WORKDIR /app
+FROM node:lts-alpine
 
 COPY package*.json ./
+COPY yarn.lock ./
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 
