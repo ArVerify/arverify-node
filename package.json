@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "tsc index.ts --esModuleInterop true --outDir dist && node dist/index.js",
+    "build": "tsc index.ts --esModuleInterop true --outDir dist",
+    "start:docker": "node dist/index.js",
     "fmt": "prettier --write ."
   },
   "dependencies": {
