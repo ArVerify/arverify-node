@@ -1,44 +1,49 @@
-# ArVerify Authnode
-## Prerequisites
-### Arweave Keyfile
-Place the Arweave-Keyfile inside the directory
-### Config-File
-You have two options to set the configuration.
-1.  create a config.json File
-2.  create a .env File (will be used if no json file is present)
+# ArVerify Auth Node
 
-Both ways require the following variables:
+## Configuration
 
-| config.json      | .env             | Example               | Description                               |
-|------------------|------------------|-----------------------|-------------------------------------------|
-| clientId         | CLIENT_ID        | ...                   | The Google Auth Client Id (You will receive them form the ArVerify Organisation)                 |
-| clientSecret     | CLIENT_SECRET    | ...                   | The Google Auth Client Secret (You will receive them form the ArVerify Organisation)            |
-| endpoint         | ENDPOINT         | https://my-domain.org | The endpoint where the AuthNode is hosted |
-| keyfile          | KEYFILE          | my-keyfile.json       | The path to the arweave keyfile           |
+You have two options to set the AuthNode configuration:
 
-#### config.json
-Create a config.json in the root directory and insert the variables
-#### .env-File
-Create a .env-File in the root directory and insert the variables
+1.  Set everything through `config.json`.
+2.  Set everthing using `.env` (will be used if no JSON file is present).
+
+Both ways require the following variables.
+Note that all Google Auth related variables must be obtained from the ArVerify Organisation.
+
+| `config.json`  | `.env`          | Example               | Description                                                                          |
+| ------------ | ------------- | --------------------- | ------------------------------------------------------------------------------------ |
+| `clientID` | `CLIENT_ID` | ... | The Google Auth Client ID. |
+| `clientSecret` | `CLIENT_SECRET` | ... | The Google Auth Client Secret. |
+| `endpoint` | `ENDPOINT` | https://example.com | The endpoint where the AuthNode is hosted. |
+| `keyfile` | `KEYFILE` | `arweave.json` | The path to your Arweave keyfile. |
+
 ## Deploying to Heroku
-Use the following commands to run an AuthNode in Heroku. 
-Make sure, that you have Heroku and Docker installed on your machine.
+
+Use the following commands to run an AuthNode in Heroku.
+Make sure that you have Heroku and Docker installed on your machine.
+
 ```sh
 heroku container:login
 ```
+
 ```sh
 heroku create arverify-[your_org_name]
 ```
+
 ```sh
 heroku container:push authnode
 ```
+
 ```sh
 heroku container:release authnode
 ```
+
 ```sh
 heroku ps:scale authnode=1
 ```
+
 To check if the application is working run:
+
 ```sh
 heroku open
 ```
