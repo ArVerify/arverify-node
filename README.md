@@ -1,4 +1,4 @@
-# ArVeriy Authnode
+# ArVerify Authnode
 ## Prerequisites
 ### Arweave Keyfile
 Place the Arweave-Keyfile inside the directory
@@ -22,12 +22,12 @@ Create a config.json in the root directory and insert the variables
 Create a .env-File in the root directory and insert the variables
 ## Deploying to Heroku
 Use the following commands to run an AuthNode in Heroku. 
-Make sure that you have heroku and docker insatlled on your machine.
+Make sure, that you have Heroku and Docker installed on your machine.
 ```sh
 heroku container:login
 ```
 ```sh
-heroku create
+heroku create arverify-[your_org_name]
 ```
 ```sh
 heroku container:push authnode
