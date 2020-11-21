@@ -119,7 +119,7 @@ router.get("/verify/callback", async (ctx, next) => {
       console.log("Verified email:\n  -", info.email);
 
       const tags = {
-        "App-Name": "ArVerifyDev",
+        "App-Name": "ArVerify",
         Type: "Verification",
         Method: "Google",
         Address: addr,
