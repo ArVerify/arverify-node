@@ -26,8 +26,8 @@ try {
   );
 } catch (err) {
   config = {
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    googleClientID: process.env.GOOGLE_CLIENT_ID,
+    googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
     endpoint: process.env.ENDPOINT,
     keyfile: process.env.KEYFILE,
   };
@@ -40,8 +40,8 @@ const jwk = JSON.parse(
 );
 
 const oauthClient = new google.auth.OAuth2(
-  config["clientID"],
-  config["clientSecret"],
+  config["googleClientID"],
+  config["googleClientSecret"],
   config["endpoint"] + "/verify/callback"
 );
 
