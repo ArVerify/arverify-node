@@ -9,6 +9,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import { sendGenesis, isVerified, tipReceived } from "arverify";
+import pkg from "./package.json";
 
 const client = new Arweave({
   host: "arweave.net",
@@ -50,6 +51,7 @@ const router = new Router();
 router.get("/ping", async (ctx, next) => {
   ctx.body = {
     status: "alive",
+    version: pkg.version,
   };
   await next();
 });

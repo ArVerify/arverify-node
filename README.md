@@ -10,12 +10,12 @@ You have two options to set the AuthNode configuration:
 Both ways require the following variables.
 Note that all Google Auth related variables must be obtained from the ArVerify Organisation.
 
-| `config.json`  | `.env`          | Example               | Description                                                                          |
-| ------------ | ------------- | --------------------- | ------------------------------------------------------------------------------------ |
-| `clientID` | `CLIENT_ID` | ... | The Google Auth Client ID. |
-| `clientSecret` | `CLIENT_SECRET` | ... | The Google Auth Client Secret. |
-| `endpoint` | `ENDPOINT` | https://example.com | The endpoint where the AuthNode is hosted. |
-| `keyfile` | `KEYFILE` | `arweave.json` | The path to your Arweave keyfile. |
+| `config.json`  | `.env`          | Example             | Description                                |
+| -------------- | --------------- | ------------------- | ------------------------------------------ |
+| `clientID`     | `CLIENT_ID`     | ...                 | The Google Auth Client ID.                 |
+| `clientSecret` | `CLIENT_SECRET` | ...                 | The Google Auth Client Secret.             |
+| `endpoint`     | `ENDPOINT`      | https://example.com | The endpoint where the AuthNode is hosted. |
+| `keyfile`      | `KEYFILE`       | `arweave.json`      | The path to your Arweave keyfile.          |
 
 ## Deploying to Heroku
 
