@@ -5,7 +5,7 @@
 You have two options to set the AuthNode configuration:
 
 1.  Set everything through `config.json`.
-2.  Set everthing using `.env` (will be used if no JSON file is present).
+2.  Set everything using `.env` (will be used if no JSON file is present).
 
 Both ways require the following variables.
 Note that all Google Auth related variables must be obtained from the ArVerify Organisation.
@@ -20,7 +20,7 @@ Note that all Google Auth related variables must be obtained from the ArVerify O
 ## Deploying to Heroku
 
 Use the following commands to run an AuthNode in Heroku.
-Make sure that you have Heroku and Docker installed on your machine.
+Make sure, that you have Heroku and Docker installed on your machine.
 
 ```sh
 heroku container:login
@@ -42,7 +42,7 @@ heroku container:release authnode
 heroku ps:scale authnode=1
 ```
 
-To check if the application is working run:
+To check if the application is working, run:
 
 ```sh
 heroku open
