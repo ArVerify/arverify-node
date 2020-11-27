@@ -167,9 +167,9 @@ async function start() {
     process.exit(1);
   } else {
     console.log("Sent genesis tx with id:\n  -", genesis, "\n");
-    const port = process.env.PORT || 3000
+    const port = process.env.PORT || 3000;
     http.listen(port);
-    console.log("ArVerify Auth Node started at port 3000.\n");
+    console.log("ArVerify Auth Node started at port: ", port, "\n");
   }
 }
 
