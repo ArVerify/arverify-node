@@ -70,7 +70,7 @@ router.get("/verify", async (ctx, next) => {
     };
   } else {
     console.log("Received verification request for address:\n  -", addr);
-    if (await isVerified(addr)) {
+    if ((await isVerified(addr)).verified) {
       ctx.body = {
         status: "success",
         message: "already verified",
