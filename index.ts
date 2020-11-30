@@ -42,7 +42,9 @@ const jwk = JSON.parse(
 const oauthClient = new google.auth.OAuth2(
   config["googleClientID"],
   config["googleClientSecret"],
-  config["endpoint"] + "/verify/callback"
+  config["endpoint"] + config["endpoint"].endsWith("/")
+    ? ""
+    : "/" + "verify/callback"
 );
 
 const http = new Koa();
