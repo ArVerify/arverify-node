@@ -31,15 +31,15 @@ heroku create arverify-[your_org_name]
 ```
 
 ```sh
-heroku container:push authnode
+heroku container:push web
 ```
 
 ```sh
-heroku container:release authnode
+heroku container:release web
 ```
 
 ```sh
-heroku ps:scale authnode=1
+heroku ps:scale web=1
 ```
 
 To check if the application is working, run:
