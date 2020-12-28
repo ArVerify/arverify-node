@@ -196,10 +196,10 @@ arrify@^2.0.0:
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
   integrity sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==
 
-arverify@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/arverify/-/arverify-0.0.1.tgz#c5080a34b1b04b41889a0523b463373cd3764482"
-  integrity sha512-QPCdKNXb2bOuR2fae7bOZElZPT86v9vzrodF8OfZWSzIXGiYAPpjR+QIeC5Y9TwQRFnsp3lgPdVJkp8Z7jXk8Q==
+arverify@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/arverify/-/arverify-0.0.2.tgz#ad1b82afb92c2d935e764f59b4f0caa32d6789a0"
+  integrity sha512-g2dXmlRDP7FwMqG9g5A5M16vm3s0oGWKQCLK0yV7D3CxSceLioyS78rVR/FCiOQ0NDlQPE+5f1KkPBj2Fevzbw==
   dependencies:
     ar-gql "^0.0.1"
     arweave "^1.9.1"

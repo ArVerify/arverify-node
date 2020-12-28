@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@koa/router": "^9.4.0",
-    "arverify": "^0.0.1",
+    "arverify": "^0.0.2",
     "arweave": "^1.9.1",
     "dotenv": "^8.2.0",
     "googleapis": "^62.0.0",
