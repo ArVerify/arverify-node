@@ -3,6 +3,7 @@ import Arweave from "arweave";
 import { google } from "googleapis";
 
 import Koa from "koa";
+import cors from "@koa/cors";
 import Router from "@koa/router";
 import * as dotenv from "dotenv";
 
@@ -48,6 +49,7 @@ const oauthClient = new google.auth.OAuth2(
 );
 
 const http = new Koa();
+http.use(cors());
 const router = new Router();
 
 router.get("/ping", async (ctx, next) => {
