@@ -134,7 +134,7 @@ router.get("/verify/callback", async (ctx, next) => {
         // arweave-activities tags
         Service: "ArVerify",
         "Community-ID": COMMUNITY_ID,
-        Message: `${addr} got verified via Google Sign-In`,
+        Message: `${addr} verified via Google Sign-In`,
         Type: "ArweaveActivity"
       };
 
