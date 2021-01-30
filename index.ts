@@ -1,17 +1,17 @@
 import * as fs from "fs";
 import Arweave from "arweave";
-import {google} from "googleapis";
+import { google } from "googleapis";
 
 import Koa from "koa";
 import cors from "@koa/cors";
 import Router from "@koa/router";
 import * as dotenv from "dotenv";
 
-import {COMMUNITY as COMMUNITY_ID} from "arverify";
+import { COMMUNITY as COMMUNITY_ID } from "arverify";
 
 dotenv.config();
 
-import {sendGenesis, isVerified, tipReceived} from "arverify";
+import { sendGenesis, isVerified, tipReceived } from "arverify";
 import pkg from "./package.json";
 
 const client = new Arweave({
@@ -46,8 +46,8 @@ const oauthClient = new google.auth.OAuth2(
   config["googleClientID"],
   config["googleClientSecret"],
   config["endpoint"] +
-  (config["endpoint"].endsWith("/") ? "" : "/") +
-  "verify/callback"
+    (config["endpoint"].endsWith("/") ? "" : "/") +
+    "verify/callback"
 );
 
 const http = new Koa();
@@ -87,7 +87,7 @@ router.get("/verify", async (ctx, next) => {
       if (await tipReceived(addr, await client.wallets.jwkToAddress(jwk))) {
         const uri = oauthClient.generateAuthUrl({
           scope: ["openid", "email", "profile"],
-          state: JSON.stringify({address: addr, returnUri, referral}),
+          state: JSON.stringify({ address: addr, returnUri, referral }),
         });
         ctx.body = {
           status: "success",
@@ -135,7 +135,7 @@ router.get("/verify/callback", async (ctx, next) => {
         Service: "ArVerify",
         "Community-ID": COMMUNITY_ID,
         Message: `${addr} verified via Google Sign-In`,
-        Type: "ArweaveActivity"
+        Type: "ArweaveActivity",
       };
 
       const tx = await client.createTransaction(
