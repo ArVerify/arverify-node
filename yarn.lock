@@ -210,10 +210,10 @@ arrify@^2.0.0:
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
   integrity sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==
 
-arverify@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/arverify/-/arverify-0.0.4.tgz#d09cdb818107ece397fc7715cc8bc5c94781772a"
-  integrity sha512-PoFdfmiGmYcemHaUyy41oqpvkHZioi3+nP5IbBpTDuOjzyIQV+JORlZ2hX5Au2QcvcSZ6qS7FhD/vUNZK3/QTg==
+arverify@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/arverify/-/arverify-0.0.5.tgz#249f2c25cb7ca8133c82dfe133c5225932f76476"
+  integrity sha512-N5U0ppf65+omaNBJtZjxr0whnQnu63Hx1xUdhrY8BIWBoPyc/xZg40E4mF6wKz/N2cg0mLR67jC28Awh2QF3yg==
   dependencies:
     ar-gql "^0.0.1"
     arweave "^1.9.1"
