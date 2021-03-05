@@ -7,6 +7,8 @@ import cors from "@koa/cors";
 import Router from "@koa/router";
 import * as dotenv from "dotenv";
 
+import { COMMUNITY as COMMUNITY_ID } from "arverify";
+
 dotenv.config();
 
 import {sendGenesis, tipReceived, getVerification} from "arverify";
@@ -64,6 +66,7 @@ router.get("/verify", async (ctx, next) => {
   console.log("===== /verify =====");
   const addr = ctx.query["address"];
   const returnUri = ctx.query["return"];
+  const referral = ctx.query["referral"];
 
   if (!addr) {
     console.log("No address supplied.");
@@ -84,7 +87,7 @@ router.get("/verify", async (ctx, next) => {
       if (await tipReceived(addr, await client.wallets.jwkToAddress(jwk))) {
         const uri = oauthClient.generateAuthUrl({
           scope: ["openid", "email", "profile"],
-          state: JSON.stringify({ address: addr, returnUri }),
+          state: JSON.stringify({ address: addr, returnUri, referral }),
         });
         ctx.body = {
           status: "success",
@@ -113,6 +116,7 @@ router.get("/verify/callback", async (ctx, next) => {
   const state = JSON.parse(ctx.query["state"]);
   const addr = state["address"];
   const uri = state["returnUri"];
+  const referral = state["referral"];
 
   console.log("Received callback for address:\n  -", addr);
 
@@ -120,13 +124,18 @@ router.get("/verify/callback", async (ctx, next) => {
   if (res.tokens.access_token) {
     const info = await oauthClient.getTokenInfo(res.tokens.access_token);
     if (info.email_verified) {
-      console.log("Verified email:\n  -", info.email);
-
       const tags = {
         "App-Name": "ArVerify",
-        Type: "Verification",
+        Action: "Verification",
         Method: "Google",
         Address: addr,
+        Referral: referral,
+
+        // arweave-activities tags
+        Service: "ArVerify",
+        "Community-ID": COMMUNITY_ID,
+        Message: `${addr} verified via Google Sign-In`,
+        Type: "ArweaveActivity",
       };
 
       const tx = await client.createTransaction(
