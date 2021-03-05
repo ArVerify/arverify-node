@@ -9,7 +9,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-import { sendGenesis, isVerified, tipReceived } from "arverify";
+import {sendGenesis, tipReceived, getVerification} from "arverify";
 import pkg from "./package.json";
 
 const client = new Arweave({
@@ -74,7 +74,7 @@ router.get("/verify", async (ctx, next) => {
     };
   } else {
     console.log("Received verification request for address:\n  -", addr);
-    if ((await isVerified(addr)).verified) {
+    if ((await getVerification(addr)).txID) {
       ctx.body = {
         status: "success",
         message: "already verified",
