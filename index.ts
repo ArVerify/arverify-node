@@ -125,7 +125,7 @@ router.get("/verify/callback", async (ctx, next) => {
     const info = await oauthClient.getTokenInfo(res.tokens.access_token);
     if (info.email_verified) {
       const tags = {
-        "App-Name": "ArVerify",
+        "Application": "ArVerify",
         Action: "Verification",
         Method: "Google",
         Address: addr,
