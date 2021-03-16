@@ -36,11 +36,7 @@ try {
   };
 }
 
-const jwk = JSON.parse(
-  fs.readFileSync(config.keyfile, {
-    encoding: "utf-8",
-  })
-);
+const jwk = typeof config.keyfile === "string" ? JSON.parse(config.keyfile) : config.keyfile ;
 
 const oauthClient = new google.auth.OAuth2(
   config["googleClientID"],
